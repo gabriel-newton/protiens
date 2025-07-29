@@ -1,4 +1,4 @@
-<img width="1858" height="817" alt="image" src="https://github.com/user-attachments/assets/9eb62ed5-c0cc-4e1c-a0eb-2111c6d585b1" /># K-mer Invariant Analyzer
+# K-mer Invariant Analyzer
 
 This script analyzes geometric sequences of proteins to identify frequently occurring k-mers (subsequences of length *k*) and extracts their corresponding geometric invariant data. It processes a main data file of protein sequences, finds the most common k-mers, locates their occurrences, and then pulls detailed invariant measurements for each residue in those occurrences from a larger dataset of individual residue files.
 
