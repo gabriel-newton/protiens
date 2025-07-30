@@ -13,29 +13,29 @@ tqdm.pandas(desc="Processing Rows")
 # Note: These Windows-style UNC paths will fail on Linux unless the remote share
 # is mounted. For example, if \\rfs01\rdm01 is mounted at /mnt/rfs01, the path
 # should be changed to /mnt/rfs01/GeometryOfProteins/...
-GEO_DATA_PATH = "\\\\rfs01\\rdm01\\GeometryOfProteins\\Ziqiu\\invariant_result\\geo_info_18Mar2024.csv"
+SEQ_DATA_PATH = "\\\\rfs01\\rdm01\\GeometryOfProteins\\Ziqiu\\invariant_result\\geo_info_18Mar2024.csv"
 INVARIANT_DATA_PATH = "\\\\rfs01\\rdm01\\GeometryOfProteins\\Ziqiu\\invariant_result\\invariant_with_weak\\"
 
 class KmerAnalyzer:
     """
-    A class to handle the analysis of k-mers from protein geometric sequences.
+    A class to handle the analysis of k-mers from protein sequences.
     """
-    def __init__(self, k: int, depth: int, geo_data_path: str = GEO_DATA_PATH, invariant_data_path: str = INVARIANT_DATA_PATH):
+    def __init__(self, k: int, depth: int, seq_data_path: str = SEQ_DATA_PATH, invariant_data_path: str = INVARIANT_DATA_PATH):
         """
         Initializes the analyzer, using global paths as defaults.
         """
         self.k = k
         self.depth = depth
-        self.geo_data_path = geo_data_path
+        self.seq_data_path = seq_data_path
         self.invariant_data_path = invariant_data_path
         
         try:
-            self.geo_df = pd.read_csv(self.geo_data_path)
+            self.seq_df = pd.read_csv(self.seq_data_path)
             # Magic number -3 removes the trailing 'END' from sequences.
-            self.sequences = self.geo_df['geo_seq'].dropna().astype(str).str[:-3].tolist()
+            self.sequences = self.seq_df['seq_seq'].dropna().astype(str).str[:-3].tolist()
         except FileNotFoundError:
-            print(f"Error: The file '{self.geo_data_path}' was not found.")
-            self.geo_df = pd.DataFrame()
+            print(f"Error: The file '{self.seq_data_path}' was not found.")
+            self.seq_df = pd.DataFrame()
             self.sequences = []
             
         self.df_with_locations = None
@@ -107,7 +107,7 @@ class KmerAnalyzer:
         Creates and saves a DataFrame with location information for the top k-mers.
         """
         output_dir = f"k{self.k}"
-        output_filename = os.path.join(output_dir, f"geo_info_k{self.k}_locations.csv")
+        output_filename = os.path.join(output_dir, f".seq_info_k{self.k}_locations.csv")
         os.makedirs(output_dir, exist_ok=True)
 
         run_analysis = True
@@ -130,10 +130,10 @@ class KmerAnalyzer:
                 return self.df_with_locations
 
             top_kmers = [kmer for kmer, count in top_kmers_with_counts]
-            self.df_with_locations = self.geo_df.copy()
+            self.df_with_locations = self.seq_df.copy()
             
             for kmer in tqdm(top_kmers, desc="Finding k-mer locations"):
-                self.df_with_locations[kmer] = self.df_with_locations['geo_seq'].dropna().astype(str).apply(
+                self.df_with_locations[kmer] = self.df_with_locations['seq_seq'].dropna().astype(str).apply(
                     lambda seq: self._find_single_kmer_locations(sequence=seq, kmer_to_find=kmer)
                 )
             

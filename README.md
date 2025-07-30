@@ -1,11 +1,10 @@
-Of course. Here is the polished and updated `README` section for your visualizer.
-
 ### K-mer Invariant Data (`<kmer>.csv`)
 
 For each top k-mer, a separate CSV file is created (e.g., `AAL.csv`). Each row in this file represents a single residue within an occurrence of that k-mer, detailing its geometric properties.
 
----
-<img width="1858" height="817" alt="image" src="https://github.com/user-attachments/assets/28e3a895-a425-480b-a382-b9ce75c6a35f" />
+-----
+
+\<img width="1858" height="817" alt="image" src="[https://github.com/user-attachments/assets/28e3a895-a425-480b-a382-b9ce75c6a35f](https://github.com/user-attachments/assets/28e3a895-a425-480b-a382-b9ce75c6a35f)" /\>
 
 **Columns:**
 
@@ -16,9 +15,9 @@ For each top k-mer, a separate CSV file is created (e.g., `AAL.csv`). Each row i
   * `angle(N)`, `angle(A)`, `angle(C)`: The three angle invariants for the residue.
   * `tau(NA)`, `tau(AC)`, `tau(CN)`: The three torsional angle (tau) invariants for the residue.
 
-### Location Data (`geo_info_k{k}_locations.csv`)
+### Location Data (`seq_info_k{k}_locations.csv`)
 
-This file acts as an intermediate lookup table. It is a filtered version of the input `geo_info...csv` file, containing only the rows (proteins) where at least one of the top k-mers was found. It adds new columns for each of the top k-mers.
+This file acts as an intermediate lookup table. It is a filtered version of the input `seq_info...csv` file, containing only the rows (proteins) where at least one of the top k-mers was found. It adds new columns for each of the top k-mers.
 
 ## Class: `KmerAnalyzer`
 
@@ -30,10 +29,10 @@ This class contains all the logic for the analysis.
     The constructor initializes the analyzer. It sets the k-mer length **`k`** and the number of top k-mers to find **`depth`**. It loads the main protein sequence data and, for optimization, immediately scans the invariant data directory to build a file map. This map allows for rapid file lookups during the main processing step.
 
   * `find_top_kmers(self)`
-    This method iterates through all geometric sequences to count the occurrences of every possible k-mer. It returns a list of the **`depth`** most frequent k-mers and their counts.
+    This method iterates through all protein sequences to count the occurrences of every possible k-mer. It returns a list of the **`depth`** most frequent k-mers and their counts.
 
   * `create_location_data(self, force_rerun: bool = False)`
-    This method generates the `geo_info_k{k}_locations.csv` file described above. It uses the results from `find_top_kmers()` to find the specific locations of top k-mers in each protein sequence. To save time, it will load the data from an existing file if one is present, unless `force_rerun` is set to `True`.
+    This method generates the `seq_info_k{k}_locations.csv` file described above. It uses the results from `find_top_kmers()` to find the specific locations of top k-mers in each protein sequence. To save time, it will load the data from an existing file if one is present, unless `force_rerun` is set to `True`.
 
   * `extract_invariant_data(self, force_rerun: bool = False, checkpoint_interval: int = 100)`
     This is the main data extraction method. It iterates through the location data file, and for each k-mer occurrence, it:
