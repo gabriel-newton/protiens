@@ -4,7 +4,7 @@ For each top k-mer, a separate CSV file is created (e.g., `AAL.csv`). Each row i
 
 -----
 
-\<img width="1858" height="817" alt="image" src="[https://github.com/user-attachments/assets/28e3a895-a425-480b-a382-b9ce75c6a35f](https://github.com/user-attachments/assets/28e3a895-a425-480b-a382-b9ce75c6a35f)" /\>
+\<img width="1858" height="817" alt="image" src="[[A_ramachandran.gif]]" /\>
 
 **Columns:**
 
