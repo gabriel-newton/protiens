@@ -4,6 +4,9 @@ Of course. Here is the polished and updated `README` section for your visualizer
 
 For each top k-mer, a separate CSV file is created (e.g., `AAL.csv`). Each row in this file represents a single residue within an occurrence of that k-mer, detailing its geometric properties.
 
+---
+<img width="1858" height="817" alt="image" src="https://github.com/user-attachments/assets/28e3a895-a425-480b-a382-b9ce75c6a35f" />
+
 **Columns:**
 
   * `position_in_kmer`: The 0-indexed position of the residue within the k-mer itself (from `0` to `k-1`).
